@@ -48,7 +48,10 @@ def test_quartile_outlier(df:pd.DataFrame,col:str, expectation:float):
 
 
 df=pd.read_csv(r"data\hotels.csv",index_col=0)
-test_missing_values(df,'Country',0.05)
+test_missing_values(df,'IsCanceled',0.0)
+test_missing_values(df,'ADR',0.05)
+test_missing_values(df,'LeadTime',0.05)
+
 test_range(df,'Adults',1,25,0.05)
 test_room_type(df,0.10)
 test_deposit_type_valid_categories(df)
