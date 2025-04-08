@@ -8,11 +8,11 @@ def test_missing_values(df:pd.DataFrame, column:str, expectation:float):
     print('Passed')
 
 
-def test_adults_range(df:pd.DataFrame, expectation:float):
-    valid_range = df['Adults'].between(1, 25)
+def test_range(df:pd.DataFrame, col:str, min:int, max:int, expectation:float):
+    valid_range = df[col].between(min, max)
     ratio_invalid = 1-valid_range.mean()
 
-    assert ratio_invalid<=expectation, f"Too many invalid 'Adults' values. Invalid ratio: {ratio_invalid:.2%}"
+    assert ratio_invalid<=expectation, f"Too many invalid {col} values. Invalid ratio: {ratio_invalid:.2%}"
     print('Passed')
 
 def test_room_type(df:pd.DataFrame, expectation:float):
@@ -49,7 +49,7 @@ def test_quartile_outlier(df:pd.DataFrame,col:str, expectation:float):
 
 df=pd.read_csv(r"data\hotels.csv",index_col=0)
 test_missing_values(df,'Country',0.05)
-test_adults_range(df,0.05)
+test_range(df,'Adults',1,25,0.05)
 test_room_type(df,0.10)
 test_deposit_type_valid_categories(df)
 test_quartile_outlier(df,'ADR',0.05)
